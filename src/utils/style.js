@@ -20,7 +20,7 @@ export const style =  StyleSheet.create({
         borderWidth: 1,
         borderColor: "#dee2e6",
         borderRadius: 10,
-        elevation: 10
+        elevation: 10,
     },
     loginInput: {
         borderWidth: 1,
@@ -34,11 +34,35 @@ export const style =  StyleSheet.create({
         marginTop: 20,
         height: 36,
         backgroundColor: '#f7e034',
-        borderRadius: 10,
+        borderRadius: 18,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 5
-    }
+    },
+    loginRegister: {flexDirection:'row', position:'absolute', bottom:10},
+    registerContainer: {
+        alignItems: 'center',
+        padding: 10,
+        width: '80%',
+        height: 480,
+        marginTop: 20,
+        backgroundColor: '#FFF',
+        borderWidth: 1,
+        borderColor: "#dee2e6",
+        borderRadius: 10,
+        elevation: 10
+    },
+    registerShape: {
+        position:'absolute',
+        bottom:0,
+        alignItems: 'center',
+        backgroundColor: '#f7e034',
+        width: '100%',
+        height: 320,
+        borderTopStartRadius: 120,
+        borderTopEndRadius: 120,
+        zIndex:-1
+    },
 
 })

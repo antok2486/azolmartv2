@@ -15,13 +15,10 @@ export default function App() {
 
 			if(token){
 				setComp('Login')
-				console.log('ada token')
 			}
 		}
 
 		getToken()
-
-		console.log(comp)
 	})
 
 	return (
@@ -29,6 +26,7 @@ export default function App() {
 			<Stack.Navigator initialRouteName={comp}>
 				<Stack.Screen name='Home' component={ScreenComponent['home']} options={{headerShown:false}} />
 				<Stack.Screen name='Login' component={ScreenComponent['login']} options={{headerShown:false}} />
+				<Stack.Screen name='Register' component={ScreenComponent['register']} options={{headerShown:false}} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)

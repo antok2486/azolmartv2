@@ -6,12 +6,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 export default function LoginScreen({ ...props }) {
     useEffect(() => {
         const backAction = () => {
-            Alert.alert('Hold on!', 'Are you sure you want to go back?', [
-                {
-                    text: 'Cancel',
-                    onPress: () => null,
-                    style: 'cancel',
-                },
+            Alert.alert('Hold on!', 'Are you sure you want to go exit?', [
+                { text: 'Cancel', onPress: () => null, style: 'cancel',},
                 { text: 'YES', onPress: () => BackHandler.exitApp() },
             ]);
             return true;
@@ -26,7 +22,7 @@ export default function LoginScreen({ ...props }) {
     }, [])
 
     return (
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: 'center', height:'100%' }}>
             <View style={style.loginShape}>
                 <Image source={require('../asset/logo.png')} style={style.loginImage} />
             </View>
@@ -50,8 +46,13 @@ export default function LoginScreen({ ...props }) {
 
                 <TouchableOpacity style={style.loginButton} onPress={() => null} >
                     <FontAwesome5 name='hand-point-right' size={18} />
-                    <Text style={{ marginStart: 5, }}>Masuk</Text>
+                    <Text style={{ marginStart: 5, }}>Login</Text>
                 </TouchableOpacity>
+            </View>
+
+            <View style={style.loginRegister}>
+                <Text style={{fontWeight:'bold'}}>Not registered ? </Text>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Register', {name:'register'})}><Text style={{color:'blue'}}>Create Account</Text></TouchableOpacity>
             </View>
         </View>
     )
