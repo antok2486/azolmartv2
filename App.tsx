@@ -7,26 +7,13 @@ import { ScreenComponent } from './src/utils/config';
 
 export default function App() {
 	const Stack = createNativeStackNavigator();
-	const [comp, setComp] = useState('Login')
-
-	useEffect(() => {
-		const getToken = async () => {
-			let token = await AsyncStorage.getItem('token')
-
-			if(token){
-				setComp('Login')
-			}
-		}
-
-		getToken()
-	})
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName={comp}>
-				<Stack.Screen name='Home' component={ScreenComponent['home']} options={{headerShown:false}} />
-				<Stack.Screen name='Login' component={ScreenComponent['login']} options={{headerShown:false}} />
-				<Stack.Screen name='Register' component={ScreenComponent['register']} options={{headerShown:false}} />
+			<Stack.Navigator initialRouteName={'Login'}>
+				<Stack.Screen name='Login' component={ScreenComponent['login']} options={{ headerShown: false }} />
+				<Stack.Screen name='Home' component={ScreenComponent['home']} options={{ headerShown: false }} />
+				<Stack.Screen name='Register' component={ScreenComponent['register']} options={{ headerShown: false }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)

@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native"
 
 export const style =  StyleSheet.create({
     loginShape: {
+        position:'absolute',
+        top:0,
         alignItems: 'center',
         backgroundColor: '#f7e034',
         width: '100%',
@@ -11,16 +13,18 @@ export const style =  StyleSheet.create({
     },
     loginImage:{ width: 192, height: 192 },
     loginContainer: {
+        alignSelf:'center',
         alignItems: 'center',
         padding: 10,
         width: '80%',
-        height: 300,
-        marginTop: -60,
+        height: 320,
+        marginTop: 200,
+        marginBottom:50,
         backgroundColor: '#FFF',
         borderWidth: 1,
         borderColor: "#dee2e6",
         borderRadius: 10,
-        elevation: 10,
+        elevation: 5,
     },
     loginInput: {
         borderWidth: 1,
@@ -40,12 +44,13 @@ export const style =  StyleSheet.create({
         alignItems: 'center',
         elevation: 5
     },
-    loginRegister: {flexDirection:'row', position:'absolute', bottom:10},
+    loginRegister: {flexDirection:'row', marginTop:20,},
     registerContainer: {
         alignItems: 'center',
+        alignSelf:'center',
         padding: 10,
         width: '80%',
-        height: 480,
+        height: 520,
         marginTop: 20,
         backgroundColor: '#FFF',
         borderWidth: 1,
@@ -56,6 +61,7 @@ export const style =  StyleSheet.create({
     registerShape: {
         position:'absolute',
         bottom:0,
+        bottom:0,
         alignItems: 'center',
         backgroundColor: '#f7e034',
         width: '100%',
@@ -64,5 +70,8 @@ export const style =  StyleSheet.create({
         borderTopEndRadius: 120,
         zIndex:-1
     },
-
+    btnShowPassword:{
+        position:'absolute',
+        right:10
+    }
 })
