@@ -8,5 +8,9 @@ import HomeScreen from "../screen/HomeScreen"
 import RegisterScreen from "../screen/RegisterScreen"
 import DashboardScreen from "../screen/DashboardScreen"
 import OthScreen from "../screen/OthScreen"
+import ProductScreen from "../screen/ProductScreen";
 
-export const ScreenComponent = {'login': LoginScreen, 'home': HomeScreen, 'register': RegisterScreen, 'dashboard':DashboardScreen, 'oth':OthScreen}
+export const ScreenComponent = {
+    'login': LoginScreen, 'home': HomeScreen, 'register': RegisterScreen, 'dashboard':DashboardScreen, 'oth':OthScreen,
+    'product': ProductScreen,
+}

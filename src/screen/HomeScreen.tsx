@@ -16,7 +16,7 @@ export default function HomeScreen({...props}) {
     })
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator initialRouteName='DashboardScreen'>
             <Tab.Screen
                 name="DashboardScreen"
                 component={ScreenComponent['dashboard']}
@@ -29,11 +29,11 @@ export default function HomeScreen({...props}) {
                 }}
             />
             <Tab.Screen
-                name="SaleScreen"
-                component={SaleScreenComp}
+                name="ProductScreen"
+                component={ScreenComponent['product']}
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Sale',
+                    tabBarLabel: 'Product',
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome5 name="box" color={color} size={24} />
                     ),

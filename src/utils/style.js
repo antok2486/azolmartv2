@@ -127,6 +127,18 @@ export const style =  StyleSheet.create({
         width:64,
         height:64,
         resizeMode:'contain'
-    }
+    },
+    productFloatingButton: { position: 'absolute', width: 48, height: 48, borderRadius: 24, backgroundColor: "#f7e034", right:10, bottom: 10, alignItems: 'center', justifyContent: 'center' },
+    // resumeContainer: { height: 130, marginTop: 20, width: '100%', backgroundColor: '#f7e034', borderRadius: 10, padding: 10, elevation: 5, },
+    // resume: { height: 70, marginEnd: 10, width: 150, marginTop: 10, borderWidth: 1, borderRadius: 10, borderColor: '#dee2e6', padding: 10, backgroundColor: '#fff' },
+    productContainer: { minHeight: 150, width: '100%', marginTop: 20, backgroundColor: '#fff', borderWidth: 0, borderRadius: 10, padding: 10, elevation: 5, },
+    product: { width: 180, minHeight: 200, marginTop: 10, borderWidth: 1, borderRadius: 10, borderColor: '#dee2e6', justifyContent: 'space-between' },
+    productImage: { borderWidth: 0, width: 180, height: 100, resizeMode: 'contain', alignItems: 'center' },
+    productInfo: { borderTopWidth: 1, padding: 8, borderColor: '#dee2e6', },
+    productButton: { borderWidth: 0, flexDirection: 'row', justifyContent: 'space-between', paddingStart: 10, paddingEnd: 10, paddingTop: 5, paddingBottom: 5 },
+    textInput: { backgroundColor: '#fff' },
+    textInputFilter: { flex: 1, borderWidth: 0, borderRadius: 10, borderColor: '#dee2e6', backgroundColor: '#fff' },
+    badge: { backgroundColor: 'red', position: 'absolute', top: -8, right: 2, borderRadius: 5, fontSize: 10, color: '#fff', paddingStart: 3, paddingEnd: 3, }
+
 
 })
