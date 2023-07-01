@@ -1,11 +1,14 @@
 import { StyleSheet } from "react-native"
 
+const colorPrimary = '#f7e034'
+const colorLight = '#ffffff'
+
 export const style =  StyleSheet.create({
     loginShape: {
         position:'absolute',
         top:0,
         alignItems: 'center',
-        backgroundColor: '#f7e034',
+        backgroundColor: colorPrimary,
         width: '100%',
         height: 250,
         borderBottomStartRadius: 120,
@@ -37,7 +40,7 @@ export const style =  StyleSheet.create({
         width: '100%',
         marginTop: 20,
         height: 36,
-        backgroundColor: '#f7e034',
+        backgroundColor: colorPrimary,
         borderRadius: 18,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -63,7 +66,7 @@ export const style =  StyleSheet.create({
         bottom:0,
         bottom:0,
         alignItems: 'center',
-        backgroundColor: '#f7e034',
+        backgroundColor: colorPrimary,
         width: '100%',
         height: 320,
         borderTopStartRadius: 120,
@@ -73,5 +76,57 @@ export const style =  StyleSheet.create({
     btnShowPassword:{
         position:'absolute',
         right:10
+    },
+    dashboardResumeContainer:{
+        marginTop:10,
+        height:120,
+        // padding:10,
+        backgroundColor:colorPrimary,
+        elevation:5
+    },
+    dashboardResume:{
+        height:'100%',
+        width:180,
+        backgroundColor:'#fff',
+        // marginEnd:10,
+        borderRadius:10,
+        elevation:5,
+        padding:10,
+    },
+    dashboardResumeTitle:{
+        fontWeight:'bold'
+    },
+    dashboardResumeValue:{
+        marginTop:10,
+        fontSize:18,
+    },
+    dashboardResumeFooter:{
+        marginTop:10,
+        fontSize:12,
+    },
+    dashboarDailySalesContainer:{
+        marginTop:10,
+        backgroundColor: colorLight,
+        height:265,
+        elevation:5,
+        // padding:10
+    },
+    dashboarTopProductContainer:{
+        marginTop:10,
+        backgroundColor: colorLight,
+        width:'100%',
+        height:'auto',
+        elevation:5,
+        padding:10
+    },
+    dashboardTopProductTh:{
+        borderBottomWidth:1,
+        borderColor: "#dee2e6",
+    },
+    dashboardTopProductImage:{
+        width:64,
+        height:64,
+        resizeMode:'contain'
     }
+
 })

@@ -1,4 +1,7 @@
 export const URL_API = 'http://192.168.8.24/api/'
+export const numberFormat = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+});
 
 import LoginScreen from "../screen/LoginScreen"
 import HomeScreen from "../screen/HomeScreen"
