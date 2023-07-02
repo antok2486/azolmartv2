@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { style } from '../utils/style';
 import { URL_API, numberFormat } from '../utils/config';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
@@ -150,21 +151,24 @@ const ProductComp = ({ ...props }) => {
     )
 }
 
-export default function ProductScreen({ navigation, route }) {
+export default function ProductScreen({navigation, route}) {
     const [dataCart, setDataCart] = useState([])
     const [dataBasket, setDataBasket] = useState([])
     const [filter, setFilter] = useState('')
     const [textFilter, setTextFilter] = useState('')
+    const nav = useNavigation()
 
     useEffect(() => {
-        if(route.params?.dataCart){
-            setDataCart(route.params.dataCart)
-            console.log('ada cart')
-        }else{
-            setDataCart([])
+        // console.log('route param ditangkap')
+        // console.log(route.params.dataCart.length)
+        if(route.params?.dataCart)(
+            setDataCart(route.params?.dataCart)
+        )
+
+        if(route.params?.dataBasket){
+            setDataBasket(route.params?.dataBasket)
         }
-        // console.log('masuk')
-    },[route.params?.dataCart])
+    },[route.params?.dataCart, route.params?.dataBasket])
 
     const handleClickFilter = () => {
         setFilter(textFilter)
@@ -191,12 +195,16 @@ export default function ProductScreen({ navigation, route }) {
                                     <FontAwesome5 name='times' size={18} />
                                 </TouchableOpacity>
                             }
+
                             <TextInput placeholder='Pencarian' style={[style.headerInputFilter, { paddingStart: filter ? 28 : 15 }]} defaultValue={textFilter} onChangeText={(text) => setTextFilter(text)} onEndEditing={() => handleClickFilter()} />
-                            <TouchableOpacity style={style.headerButtonSearch}><FontAwesome5 name='search' size={18} onPress={() => handleClickFilter()} /></TouchableOpacity>
+
+                            <TouchableOpacity style={style.headerButtonSearch} onPress={() => handleClickFilter()}>
+                                <FontAwesome5 name='search' size={18} />
+                            </TouchableOpacity>
                         </View>
                     ),
                     headerRight: () => (
-                        <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ width: 100, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <TouchableOpacity onPress={() => navigation.navigate('AddPurchase', { dataBasket: dataBasket })}>
                                 <FontAwesome5 name='shopping-basket' size={18} />
                                 {dataBasket.length !== 0 &&
@@ -212,12 +220,14 @@ export default function ProductScreen({ navigation, route }) {
                             </TouchableOpacity>
 
                             <TouchableOpacity><FontAwesome5 name='mobile-alt' size={18} /></TouchableOpacity>
+                            <TouchableOpacity><FontAwesome5 name='charging-station' size={18} /></TouchableOpacity>
                         </View>
                     )
                 }}
             >
                 {(props) => <ProductComp {...props} dataCart={dataCart} setDataCart={setDataCart} dataBasket={dataBasket} setDataBasket={setDataBasket} filter={filter} />}
             </Stack.Screen>
+
         </Stack.Navigator>
     )
 }

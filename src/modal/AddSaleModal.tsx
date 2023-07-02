@@ -114,9 +114,11 @@ const AddSaleComp = ({ ...props }) => {
                                 {item['foto'] &&
                                     <Image source={{ uri: item['foto'] }} style={style.saleProductImage} />
                                 }
+
                                 {!item['foto'] &&
                                     <FontAwesome5 name='camera' size={64} />
                                 }
+                                
                                 <TouchableOpacity style={style.saleButtonRemove} onPress={() => handleClickDelete(index)}>
                                     <FontAwesome5 name='trash' size={18} color={'blue'} />
                                 </TouchableOpacity>
@@ -151,12 +153,14 @@ const AddSaleComp = ({ ...props }) => {
 
 export default function AddSaleModal({ navigation, route }) {
     const [dataCart, setDataCart] = useState(route.params.dataCart)
+    // const dataCart = route.params.dataCart
+    // const setDataCart = route.params.setDataCart
+
     const [dataH, setDataH] = useState({ keterangan: '', flag_harga: false })
 
     const handleClickBack = () => {
-        console.log(dataCart.length)
         navigation.navigate({
-            name: 'Home',
+            name: 'ProductScreen',
             params: { dataCart: dataCart },
             merge: true,
           });
@@ -202,7 +206,7 @@ export default function AddSaleModal({ navigation, route }) {
             } else {
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: 'main' }],
+                    routes: [{ name: 'Home' }],
                 })
             }
         } catch (errors) {

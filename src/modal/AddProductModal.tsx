@@ -171,9 +171,47 @@ const AddProductModalComp = ({ ...props }) => {
 export default function AddProductModal({ navigation, route }) {
     const [data, setData] = useState({id: '', kode: '', nama: '', hrg_beli: '0', hrg_jual1: '0', hrg_jual2: '0', stok: '0', foto: ''})
 
-    useEffect(() => {
-        // console.log(route.params.id)
-    }, [])
+    const handleClickSave = () => {
+        Alert.alert('Konfirmasi', 'Apakah data yang diinput sudah benar', [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'destructive',
+            },
+            { text: 'OK', onPress: () => save() },
+        ]);
+
+    }
+
+    const save = async () => {
+        let token = await AsyncStorage.getItem('token')
+
+        let config = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+        let payload = { 'mpprod': data, 'mpprog': [] }
+
+        try {
+            let res = await axios.put(URL_API + 'mpprod', payload, config)
+
+            if (res.data.status !== 200) {
+                Alert.alert('Error', (res.data.status).toString() + res.data.message)
+            } else {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Home' }],
+                })
+            }
+        } catch (errors) {
+            console.log(errors)
+        }
+
+    }
+
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -185,7 +223,7 @@ export default function AddProductModal({ navigation, route }) {
                     headerTitle: route.params ? 'Edit Product' : 'Add Product',
                     headerRight: () => (
                         <View style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={() => null}>
+                            <TouchableOpacity onPress={() => handleClickSave()}>
                                 <FontAwesome5 name='save' size={18} />
                             </TouchableOpacity>
                         </View>

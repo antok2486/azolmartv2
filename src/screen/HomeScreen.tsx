@@ -7,18 +7,32 @@ import { ScreenComponent } from '../utils/config';
 const Tab = createBottomTabNavigator();
 
 export default function HomeScreen({navigation, route}) {
-    const [dataCart, setDataCart] = useState([])
+    // const [dataCart, setDataCart] = useState([])
+    // const [dataBasket, setDataBasket] = useState([])
 
-    useEffect(() => {
-        if(route.params?.dataCart){
-            setDataCart(route.params.dataCart)
-            // console.log('ada cart')
-        }
-        // console.log('masuk')
-    },[route.params?.dataCart])
+    // useEffect(() => {
+    //     if(route.params?.dataCart){
+    //         setDataCart(route.params.dataCart)
+    //     }
+    //     if(route.params?.dataBasket){
+    //         setDataCart(route.params.dataBasket)
+    //     }
+    // },[route.params?.dataCart, route.params?.dataBasket])
 
     return (
-        <Tab.Navigator initialRouteName='DashboardScreen'>
+        <Tab.Navigator>
+            <Tab.Screen
+                name="ProductScreen"
+                component={ScreenComponent['product']}
+                // children={() => (ScreenComponent['product']({navigation:navigation, route:route}))}
+                options={{                                        
+                    headerShown: false,
+                    tabBarLabel: 'Product',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome5 name="box" color={color} size={24} />
+                    ),
+                }}
+            />
             <Tab.Screen
                 name="DashboardScreen"
                 component={ScreenComponent['dashboard']}
@@ -30,19 +44,6 @@ export default function HomeScreen({navigation, route}) {
                     ),
                 }}
             />
-            <Tab.Screen
-                name="ProductScreen"
-                // component={ScreenComponent['product']}
-                options={{
-                    headerShown: false,
-                    tabBarLabel: 'Product',
-                    tabBarIcon: ({ color, size }) => (
-                        <FontAwesome5 name="box" color={color} size={24} />
-                    ),
-                }}
-            >
-                {() => ScreenComponent['product']({navigation:navigation, route:route})}
-            </Tab.Screen>
             <Tab.Screen
                 name="OthScreen"
                 component={ScreenComponent['oth']}
