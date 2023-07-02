@@ -1,19 +1,21 @@
 import { View, Text } from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { ScreenComponent } from '../utils/config';
 
 const Tab = createBottomTabNavigator();
 
-const SaleScreenComp = () => (
-    <View><Text>Sale Screen</Text></View>
-)
+export default function HomeScreen({navigation, route}) {
+    const [dataCart, setDataCart] = useState([])
 
-export default function HomeScreen({...props}) {
     useEffect(() => {
-
-    })
+        if(route.params?.dataCart){
+            setDataCart(route.params.dataCart)
+            // console.log('ada cart')
+        }
+        // console.log('masuk')
+    },[route.params?.dataCart])
 
     return (
         <Tab.Navigator initialRouteName='DashboardScreen'>
@@ -30,7 +32,7 @@ export default function HomeScreen({...props}) {
             />
             <Tab.Screen
                 name="ProductScreen"
-                component={ScreenComponent['product']}
+                // component={ScreenComponent['product']}
                 options={{
                     headerShown: false,
                     tabBarLabel: 'Product',
@@ -38,7 +40,9 @@ export default function HomeScreen({...props}) {
                         <FontAwesome5 name="box" color={color} size={24} />
                     ),
                 }}
-            />
+            >
+                {() => ScreenComponent['product']({navigation:navigation, route:route})}
+            </Tab.Screen>
             <Tab.Screen
                 name="OthScreen"
                 component={ScreenComponent['oth']}

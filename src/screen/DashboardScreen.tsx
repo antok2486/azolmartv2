@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Alert, Image } from 'react-native'
+import { View, Text, ScrollView, Alert, Image, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,8 +12,9 @@ const Stack = createNativeStackNavigator();
 
 const DashboarComp = () => {
     const [dataResume, setDataResume] = useState({})
-    const [dataDailySales, setDataDailySales] = useState({})
+    const [dataDailySales, setDataDailySales] = useState({'labels':['0'], 'data':[0]})
     const [dataTopProduct, setDataTopProduct] = useState([])
+    const [refreshing, setRefreshing] = useState(false)
 
     const chartConfig = {
         backgroundGradientFrom: "#fff",
@@ -41,7 +42,15 @@ const DashboarComp = () => {
                     console.log(res.data)
                     Alert.alert('Error', res.data.message)
                 } else {
-                    setDataDailySales(res.data.dailysales)
+                    if(res.data.dailysales){
+                        // cast float value
+                        res.data.dailysales['data'].forEach((element, index) => {
+                            res.data.dailysales['data'][index] = parseFloat(res.data.dailysales['data'][index])
+                        });
+
+                        setDataDailySales(res.data.dailysales)
+                    }
+
                     console.log(res.data.dailysales)
                 }
 
@@ -102,7 +111,9 @@ const DashboarComp = () => {
         getDataDailySales()
         getDataTopProduct()
 
-    }, [])
+        setRefreshing(false)
+
+    }, [refreshing])
 
     const Resume = () => (
         <ScrollView horizontal={true} style={style.dashboardResumeContainer}>
@@ -128,12 +139,12 @@ const DashboarComp = () => {
     )
 
     const DailySales = () => (
-        <ScrollView horizontal={true} style={style.dashboarDailySalesContainer}>
+        <ScrollView horizontal={true} style={style.dashboarDailySalesContainer} >
             <View style={{ padding: 10 }}>
                 <Text style={style.dashboardResumeTitle}>Daily Sales</Text>
                 <LineChart
                     data={{
-                        labels: dataDailySales['labels'] ? dataDailySales['labels'] : [0],
+                        labels: dataDailySales['labels'] ? dataDailySales['labels'] : ['0'],
                         datasets: [{ data: dataDailySales['data'] ? dataDailySales['data'] : [0] }]
                     }}
                     width={620} // from react-native
@@ -159,7 +170,8 @@ const DashboarComp = () => {
             <View style={{ flexDirection: 'row' }}>
                 <Text style={[style.dashboardTopProductTh, { width: 72 }]} />
                 <Text style={[style.dashboardTopProductTh, { flex: 1 }]}>Nama Produk</Text>
-                <Text style={[style.dashboardTopProductTh, { width: 72, textAlign: 'right' }]}>Terjual</Text>
+                <Text style={[style.dashboardTopProductTh, { width: 52, textAlign: 'right' }]}>Terjual</Text>
+                <Text style={[style.dashboardTopProductTh, { width: 52, textAlign: 'right' }]}>Stok</Text>
             </View>
 
             {dataTopProduct && dataTopProduct.map((item, index) => (
@@ -173,7 +185,8 @@ const DashboarComp = () => {
                         }
                     </View>
                     <Text style={{ flex: 1 }}>{item['nama']}</Text>
-                    <Text style={{ width: 72, textAlign: 'right' }}>{numberFormat.format(item['qty'])}</Text>
+                    <Text style={{ width: 52, textAlign: 'right' }}>{numberFormat.format(item['qty'])}</Text>
+                    <Text style={{ width: 52, textAlign: 'right' }}>{numberFormat.format(item['stok'])}</Text>
                 </View>
             ))}
 
@@ -181,7 +194,7 @@ const DashboarComp = () => {
     )
 
     return (
-        <ScrollView>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)}/>}>
             {Resume()}
             {DailySales()}
             {TopProduct()}

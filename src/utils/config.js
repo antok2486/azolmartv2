@@ -10,7 +10,11 @@ import DashboardScreen from "../screen/DashboardScreen"
 import OthScreen from "../screen/OthScreen"
 import ProductScreen from "../screen/ProductScreen";
 
+import AddProductModal from "../modal/AddProductModal";
+import AddPurchaseModal from "../modal/AddPurchaseModal";
+import AddSaleModal from "../modal/AddSaleModal";
+
 export const ScreenComponent = {
     'login': LoginScreen, 'home': HomeScreen, 'register': RegisterScreen, 'dashboard':DashboardScreen, 'oth':OthScreen,
-    'product': ProductScreen,
+    'product': ProductScreen, 'addProduct': AddProductModal, 'addSale': AddSaleModal, 'addPurchase': AddPurchaseModal,
 }
