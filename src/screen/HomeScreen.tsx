@@ -48,7 +48,9 @@ export default function HomeScreen({navigation, route}) {
                 name="OthScreen"
                 component={ScreenComponent['oth']}
                 options={{
-                    headerShown: false,
+                    headerTitle: 'Azol Mart',
+                    headerShown: true,
+                    headerStyle: { backgroundColor: '#f7e034' },
                     tabBarLabel: 'Others',
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome5 name="list" color={color} size={24} />

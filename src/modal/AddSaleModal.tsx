@@ -58,14 +58,14 @@ const AddSaleComp = ({ ...props }) => {
         if (name === 'flag_harga') {
             let tot = 0
             let keyHarga = value ? 'hrg_jual2' : 'hrg_jual1'
-            let tempH = props.dataCart.map(l => Object.assign({}, l))
-            for (let item of tempH) {
+            let tempD = props.dataCart.map(l => Object.assign({}, l))
+            for (let item of tempD) {
                 item['hrg'] = item[keyHarga]
                 item['hrg_jual'] = item[keyHarga] - item['disc']
                 item['tot_hrg'] = item['qty'] * (item[keyHarga] - item['disc'])
             }
 
-            props.setDataCart(temp)
+            props.setDataCart(tempD)
         }
     }
 
@@ -107,7 +107,7 @@ const AddSaleComp = ({ ...props }) => {
             </View>
 
             <ScrollView>
-                {props.dataCart && props.dataCart.map((item, index) => (
+                {props.dataCart && props.dataCart?.map((item, index) => (
                     <View style={style.saleContainerProduk} key={index}>
                         <View style={{ flexDirection: 'row', borderWidth: 0, flex: 1, alignItems: 'center' }}>
                             <View style={style.saleProductImageContainer}>

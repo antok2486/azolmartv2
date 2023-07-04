@@ -45,6 +45,7 @@ export default function LoginScreen({ ...props }) {
             if (res.data.status !== 200) {
                 Alert.alert(res.data.errors)
             } else {
+                console.log(res.data)
                 await AsyncStorage.setItem('token', res.data.token)
                 await AsyncStorage.setItem('username', res.data.user.nama)
 

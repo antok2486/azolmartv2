@@ -14,9 +14,14 @@ import ProductScreen from "../screen/ProductScreen";
 
 import AddProductModal from "../modal/AddProductModal";
 import AddPurchaseModal from "../modal/AddPurchaseModal";
+import AddPurchasePulsaModal from '../modal/AddPurchasePulsaModal';
 import AddSaleModal from "../modal/AddSaleModal";
+import AddSalePulsaModal from '../modal/AddSalePulsaModal';
+import PurchaseReportModal from '../modal/PurchaseReportModal';
+import SaleReportModal from '../modal/SaleReportModal';
 
 export const ScreenComponent = {
     'login': LoginScreen, 'home': HomeScreen, 'register': RegisterScreen, 'dashboard':DashboardScreen, 'oth':OthScreen,
     'product': ProductScreen, 'addProduct': AddProductModal, 'addSale': AddSaleModal, 'addPurchase': AddPurchaseModal,
+    'salereport': SaleReportModal, 'purchasereport': PurchaseReportModal, 'addSalePulsa': AddSalePulsaModal, 'addPurchasePulsa': AddPurchasePulsaModal
 }

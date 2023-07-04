@@ -141,7 +141,7 @@ const DashboarComp = () => {
     const DailySales = () => (
         <ScrollView horizontal={true} style={style.dashboarDailySalesContainer} >
             <View style={{ padding: 10 }}>
-                <Text style={style.dashboardResumeTitle}>Daily Sales</Text>
+                <Text style={style.dashboardResumeTitle}>Daily Sales 30 hari terakhir</Text>
                 <LineChart
                     data={{
                         labels: dataDailySales['labels'] ? dataDailySales['labels'] : ['0'],

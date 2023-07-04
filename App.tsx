@@ -13,10 +13,14 @@ export default function App({...props}) {
 			<Stack.Navigator initialRouteName={'Login'}>
 				<Stack.Screen name='AddProduct' component={ScreenComponent['addProduct']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddPurchase' component={ScreenComponent['addPurchase']} options={{ headerShown: false }} />
+				<Stack.Screen name='AddPurchasePulsa' component={ScreenComponent['addPurchasePulsa']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddSale' component={ScreenComponent['addSale']} options={{ headerShown: false }} />
+				<Stack.Screen name='AddSalePulsa' component={ScreenComponent['addSalePulsa']} options={{ headerShown: false }} />
 				<Stack.Screen name='Home' component={ScreenComponent['home']} options={{ headerShown: false }} />
 				<Stack.Screen name='Login' component={ScreenComponent['login']} options={{ headerShown: false }} />
 				<Stack.Screen name='Register' component={ScreenComponent['register']} options={{ headerShown: false }} />
+				<Stack.Screen name='SaleReport' component={ScreenComponent['salereport']} options={{ headerShown: true, headerTitle:'Laporan Penjualan', headerStyle: {backgroundColor:'#f7e034'} }} />
+				<Stack.Screen name='PurchaseReport' component={ScreenComponent['purchasereport']} options={{ headerShown: true, headerTitle:'Laporan Pembelian', headerStyle: {backgroundColor:'#f7e034'} }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)

@@ -219,8 +219,13 @@ export default function ProductScreen({navigation, route}) {
                                 }
                             </TouchableOpacity>
 
-                            <TouchableOpacity><FontAwesome5 name='mobile-alt' size={18} /></TouchableOpacity>
-                            <TouchableOpacity><FontAwesome5 name='charging-station' size={18} /></TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('AddSalePulsa')}>
+                                <FontAwesome5 name='mobile-alt' size={18} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('AddPurchasePulsa')}>
+                                <FontAwesome5 name='charging-station' size={18} />
+                                </TouchableOpacity>
                         </View>
                     )
                 }}
