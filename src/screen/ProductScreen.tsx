@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -43,6 +43,7 @@ const ProductComp = ({ ...props }) => {
                     }
 
                     setData(temp)
+                    setRefreshing(false)
                 }
 
             } catch (e) {
@@ -64,7 +65,7 @@ const ProductComp = ({ ...props }) => {
             getData()
         }
 
-    }, [page, props.filter])
+    }, [page, props.filter, refreshing])
 
     const addToCart = (item) => {
         //topup pulsa
@@ -161,6 +162,7 @@ const ProductComp = ({ ...props }) => {
                 renderItem={({ item }) => <Item item={item} />}
                 keyExtractor={item => item.id}
                 onEndReached={() => setPage(page + 1)}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
             />
 
             <TouchableOpacity style={style.floatingButton} onPress={() => props.navigation.navigate('AddProduct')}>

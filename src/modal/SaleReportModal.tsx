@@ -65,8 +65,8 @@ export default function SaleReportModal() {
                 </View>
 
                 <View style={{ width: 80, borderWidth: 0, alignItems: 'flex-end' }}>
-                    <Text style={{ width:'100%', textAlign: 'right' }}>Rp.{numberFormat.format(item['hrg_jual'])}</Text>
-                    <Text style={{ width:'100%', textAlign: 'right', fontSize: 10 }}>{numberFormat.format(parseFloat(item['hrg_jual']) - parseFloat(item['hrg_beli']))}</Text>
+                    <Text style={style.textNumber}>Rp.{numberFormat.format(item['hrg_jual'])}</Text>
+                    <Text style={[style.textNumber,{ fontSize: 10 }]}>{numberFormat.format(parseFloat(item['hrg_jual']) - parseFloat(item['hrg_beli']))}</Text>
                 </View>
 
                 <TouchableOpacity style={{ width: 42, alignItems: 'flex-end', borderWidth: 0 }}>

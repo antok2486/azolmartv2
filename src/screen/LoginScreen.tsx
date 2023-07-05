@@ -16,7 +16,12 @@ export default function LoginScreen({ ...props }) {
             let token = await AsyncStorage.getItem('token')
 
             if (token) {
-                props.navigation.reset({ index: 0, routes: [{ name: 'Home' }], })
+                if(props.route.params?.isExit){
+                    console.log('Good bye')
+                }
+                if(!props.route.params?.isExit){
+                    props.navigation.reset({ index: 0, routes: [{ name: 'Home' }], })
+                }
             }
         }
 

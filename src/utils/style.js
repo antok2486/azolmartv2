@@ -151,6 +151,7 @@ export const style =  StyleSheet.create({
     textInput: { height:42, backgroundColor: '#fff', borderBottomWidth:1, borderColor:'#dee2e6' },
     textInputLabel: { marginTop: 20 },
     textInputQty: { width: 80, height: 42, textAlign: 'right', borderWidth: 1, borderRadius: 5, borderColor: '#dee2e6' },
+    textNumber: {width:'100%', textAlign:'right'},
     textTotal: { fontSize: 16, fontWeight: 'bold' },
 
 })

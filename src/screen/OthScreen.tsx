@@ -19,7 +19,7 @@ export default function OthScreen({navigation, route}) {
     }, [])
 
     const handleClickLogout = async () => {
-        Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+        Alert.alert('Sign Out', 'Are you sure you want to exit?', [
             { text: 'Cancel', onPress: () => null, style: 'cancel', },
             { text: 'Yes', onPress: () => logout() },
         ]);
