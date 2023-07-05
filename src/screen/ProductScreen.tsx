@@ -67,6 +67,16 @@ const ProductComp = ({ ...props }) => {
     }, [page, props.filter])
 
     const addToCart = (item) => {
+        //topup pulsa
+        if (item['id'] === 0) {
+            return props.navigation.navigate('AddSalePulsa')
+        }
+
+        //protect stock
+        if(item['stok'] <= 0){
+            return Alert.alert('Tidak ada stok', 'Stok tidak mencukupi. Silahkan kulakan !')
+        }
+
         //check wheter item already exists
         if (!props.dataCart.find(key => key.id === item.id)) {
             item['qty'] = 1
@@ -80,6 +90,16 @@ const ProductComp = ({ ...props }) => {
     }
 
     const addToBasket = (item) => {
+        //topup pulsa
+        if (item['id'] === 0) {
+            return props.navigation.navigate('AddPurchasePulsa')
+        }
+
+        //topup iklan
+        if (item['id'] === -1) {
+            return props.navigation.navigate('AddPurchaseIklan')
+        }
+
         //check wheter item already exists
         if (!props.dataBasket.find(key => key.id === item.id)) {
             item['qty'] = 0
@@ -107,10 +127,11 @@ const ProductComp = ({ ...props }) => {
                         <FontAwesome5 name='shopping-basket' size={16} color={'#ffac45'}></FontAwesome5>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => addToCart(item)}>
-                        <FontAwesome5 name='cart-plus' size={16} color={'#ffac45'}></FontAwesome5>
-                    </TouchableOpacity>
-
+                    {item && item['id'] !== -1 &&
+                        <TouchableOpacity onPress={() => addToCart(item)}>
+                            <FontAwesome5 name='cart-plus' size={16} color={'#ffac45'}></FontAwesome5>
+                        </TouchableOpacity>
+                    }
                 </View>
 
                 <View style={style.productInfo}>
@@ -151,7 +172,7 @@ const ProductComp = ({ ...props }) => {
     )
 }
 
-export default function ProductScreen({navigation, route}) {
+export default function ProductScreen({ navigation, route }) {
     const [dataCart, setDataCart] = useState([])
     const [dataBasket, setDataBasket] = useState([])
     const [filter, setFilter] = useState('')
@@ -161,14 +182,14 @@ export default function ProductScreen({navigation, route}) {
     useEffect(() => {
         // console.log('route param ditangkap')
         // console.log(route.params.dataCart.length)
-        if(route.params?.dataCart)(
+        if (route.params?.dataCart) (
             setDataCart(route.params?.dataCart)
         )
 
-        if(route.params?.dataBasket){
+        if (route.params?.dataBasket) {
             setDataBasket(route.params?.dataBasket)
         }
-    },[route.params?.dataCart, route.params?.dataBasket])
+    }, [route.params?.dataCart, route.params?.dataBasket])
 
     const handleClickFilter = () => {
         setFilter(textFilter)
@@ -204,7 +225,7 @@ export default function ProductScreen({navigation, route}) {
                         </View>
                     ),
                     headerRight: () => (
-                        <View style={{ width: 100, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ width: 50, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <TouchableOpacity onPress={() => navigation.navigate('AddPurchase', { dataBasket: dataBasket })}>
                                 <FontAwesome5 name='shopping-basket' size={18} />
                                 {dataBasket.length !== 0 &&
@@ -219,13 +240,13 @@ export default function ProductScreen({navigation, route}) {
                                 }
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('AddSalePulsa')}>
+                            {/* <TouchableOpacity onPress={() => navigation.navigate('AddSalePulsa')}>
                                 <FontAwesome5 name='mobile-alt' size={18} />
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => navigation.navigate('AddPurchasePulsa')}>
                                 <FontAwesome5 name='charging-station' size={18} />
-                                </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     )
                 }}

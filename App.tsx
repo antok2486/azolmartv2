@@ -13,6 +13,7 @@ export default function App({...props}) {
 			<Stack.Navigator initialRouteName={'Login'}>
 				<Stack.Screen name='AddProduct' component={ScreenComponent['addProduct']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddPurchase' component={ScreenComponent['addPurchase']} options={{ headerShown: false }} />
+				<Stack.Screen name='AddPurchaseIklan' component={ScreenComponent['addPurchaseIklan']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddPurchasePulsa' component={ScreenComponent['addPurchasePulsa']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddSale' component={ScreenComponent['addSale']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddSalePulsa' component={ScreenComponent['addSalePulsa']} options={{ headerShown: false }} />
