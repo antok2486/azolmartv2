@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Alert, Image, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, Alert, Image, RefreshControl, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,9 +10,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Stack = createNativeStackNavigator();
 
-const DashboarComp = () => {
+const DashboarComp = ({...props}) => {
     const [dataResume, setDataResume] = useState({})
-    const [dataDailySales, setDataDailySales] = useState({'labels':['0'], 'data':[0]})
+    const [dataDailySales, setDataDailySales] = useState({ 'labels': ['0'], 'data': [0] })
     const [dataTopProduct, setDataTopProduct] = useState([])
     const [refreshing, setRefreshing] = useState(false)
 
@@ -42,7 +42,7 @@ const DashboarComp = () => {
                     // console.log(res.data)
                     Alert.alert('Error', res.data.message)
                 } else {
-                    if(res.data.dailysales){
+                    if (res.data.dailysales) {
                         // cast float value
                         res.data.dailysales['data'].forEach((element, index) => {
                             res.data.dailysales['data'][index] = parseFloat(res.data.dailysales['data'][index])
@@ -176,14 +176,17 @@ const DashboarComp = () => {
 
             {dataTopProduct && dataTopProduct.map((item, index) => (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }} key={item['id']}>
-                    <View style={{ width: 72, alignContent: 'center' }}>
+                    {/* <View style={{ width: 72, alignContent: 'center' }}> */}
+                    <TouchableOpacity style={{ width: 72, alignContent: 'center' }} onPress={() => props.navigation.navigate('AddProduct', { id: item['id'] })} >
                         {item['foto'] &&
                             <Image source={{ uri: item['foto'] }} style={style.dashboardTopProductImage} />
                         }
                         {!item['foto'] &&
                             <FontAwesome5 name='camera' size={64} />
                         }
-                    </View>
+                    </TouchableOpacity>
+                    {/* </View> */}
+
                     <Text style={[parseFloat(item['stok']) === 0 ? style.textError : null, { flex: 1 }]}>{item['nama']}</Text>
                     <Text style={[parseFloat(item['stok']) === 0 ? style.textError : null, { width: 52, textAlign: 'right' }]}>{numberFormat.format(item['qty'])}</Text>
                     <Text style={[parseFloat(item['stok']) === 0 ? style.textError : null, { width: 52, textAlign: 'right' }]}>{numberFormat.format(item['stok'])}</Text>
@@ -194,7 +197,7 @@ const DashboarComp = () => {
     )
 
     return (
-        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)}/>}>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}>
             {Resume()}
             {DailySales()}
             {TopProduct()}

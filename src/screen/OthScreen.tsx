@@ -62,8 +62,8 @@ export default function OthScreen({navigation, route}) {
                         <FontAwesome5 name='shopping-basket' size={18} /><Text style={{flex:1}}> Pembelian</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{flexDirection:'row', height:40, alignItems:'center'}} onPress={() => navigation.navigate('CashFlowReport')}>
-                        <FontAwesome5 name='swatchbook' size={18} /><Text style={{flex:1}}> Laporan Kas</Text>
+                    <TouchableOpacity style={{flexDirection:'row', height:40, alignItems:'center'}} onPress={() => navigation.navigate('StockRekapReport')}>
+                        <FontAwesome5 name='swatchbook' size={18} /><Text style={{flex:1}}> Laporan Stok</Text>
                     </TouchableOpacity>
                 </View>
         </ScrollView>

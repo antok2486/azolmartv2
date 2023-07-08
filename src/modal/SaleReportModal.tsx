@@ -57,9 +57,9 @@ export default function SaleReportModal() {
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row', borderWidth:0, alignItems: 'center' }}>
                         {item['flag_harga'] === 2 &&
-                            <View style={{ marginEnd: 5 }}><FontAwesome5 name='store' color={'#ffac45'} /></View>
+                            <View style={{ marginEnd: 5 }}><FontAwesome5 name='store' color={'blue'} /></View>
                         }
-                        <Text>{item['keterangan']}</Text>
+                        <Text style={{flex:1}}>{item['keterangan']}</Text>
                     </View>
                     <Text style={{ fontSize: 10, flex:1 }}>{item['kode']}</Text>
                 </View>

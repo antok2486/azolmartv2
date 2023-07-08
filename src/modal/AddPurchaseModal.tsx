@@ -192,10 +192,10 @@ export default function AddPurchaseModal({ navigation, route }) {
 			if (res.data.status !== 200) {
 				Alert.alert('Error', (res.data.status).toString() + res.data.message)
 			} else {
-				navigation.reset({
-					index: 0,
-					routes: [{ name: 'main' }],
-				})
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Home' }],
+                })
 			}
 		} catch (errors) {
 			console.log(errors)
