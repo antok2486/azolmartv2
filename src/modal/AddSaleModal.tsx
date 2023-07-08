@@ -41,7 +41,8 @@ const AddSaleComp = ({ ...props }) => {
         temp[index]['tot_hrg'] = temp[index]['qty'] * (temp[index]['hrg'] - temp[index]['disc'])
 
         for (let item of temp) {
-            tot += parseFloat(item.qty) * (parseFloat(item.hrg_jual1) - parseFloat(item.disc))
+            // tot += parseFloat(item.qty) * (parseFloat(item.hrg_jual) - parseFloat(item.disc))
+            tot += parseFloat(item['tot_hrg'])
         }
 
         props.setDataCart(temp)
@@ -63,9 +64,12 @@ const AddSaleComp = ({ ...props }) => {
                 item['hrg'] = item[keyHarga]
                 item['hrg_jual'] = item[keyHarga] - item['disc']
                 item['tot_hrg'] = item['qty'] * (item[keyHarga] - item['disc'])
+
+                tot += item['tot_hrg']
             }
 
             props.setDataCart(tempD)
+            setTotHarga(tot)
         }
     }
 
@@ -93,7 +97,7 @@ const AddSaleComp = ({ ...props }) => {
                 <TextInput style={style.textInput} defaultValue={props.dataH.keterangan} onChangeText={(text) => handleChangeH('keterangan', text)} />
 
                 <View style={{ flexDirection: 'row', marginTop: 15, alignItems: 'center' }}>
-                    <Text style={{ marginEnd: 20 }}>Penjualan Online :</Text>
+                    <Text style={{ marginEnd: 20, width:150 }}>Penjualan Online :</Text>
                     <Switch value={props.dataH['flag_harga']} onValueChange={(value) => handleChangeH('flag_harga', value)} />
                 </View>
             </View>

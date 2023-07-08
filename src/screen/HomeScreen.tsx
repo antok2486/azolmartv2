@@ -18,27 +18,8 @@ export default function HomeScreen({navigation, route}) {
             }
         }
 
-        const backAction = () => {
-            Alert.alert('Exit Azol v2', 'Are you sure you want to exit?', [
-                { text: 'Cancel', onPress: () => null, style: 'cancel', },
-                { text: 'Yes', onPress: () => {
-                    navigation.reset({ index: 0, routes: [{ name: 'Login', params: {isExit: true} }], })
-                    BackHandler.exitApp()
-                } },
-            ]);
-            return true;
-        };
-
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction,
-        );
-
         getToken()
-
-        console.log('welcome')
-
-        return () => backHandler.remove();        
+        
     },[])
 
     return (

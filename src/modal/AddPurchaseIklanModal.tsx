@@ -35,6 +35,13 @@ const AddPurchaseIklanComp = ({ ...props }) => {
 
 export default function AddPurchaseIklanModal({navigation, route}) {
     const [data, setData] = useState({})
+    const [isAtk, setIsAtk] = useState(false)
+
+    useEffect(() => {
+        if(route.params.atk){
+            setIsAtk(true)
+        }
+    },[])
 
     const handleClickSave = () => {
         Alert.alert('Konfirmasi', 'Apakah data yang diinput sudah benar', [
@@ -48,6 +55,9 @@ export default function AddPurchaseIklanModal({navigation, route}) {
     }
 
     const save = async () => {
+        let temp = Object.assign({}, data)
+        temp['id_produk'] = isAtk ? -2 : -1
+
         let token = await AsyncStorage.getItem('token')
 
         let config = {
@@ -58,7 +68,7 @@ export default function AddPurchaseIklanModal({navigation, route}) {
             }
         }
 
-        let payload = { 'trpurd': data }
+        let payload = { 'trpurd': temp }
         
         try {
             let res = await axios.put(URL_API + 'trpuri', payload, config)
@@ -82,7 +92,7 @@ export default function AddPurchaseIklanModal({navigation, route}) {
             <Stack.Screen
                 name='addpurchaseComp'
                 options={{
-                    headerTitle: 'Input Isi Saldo Iklan',
+                    headerTitle: isAtk ? 'Input Pembelian ATK' : 'Input Isi Saldo Iklan',
                     headerStyle: {
                         backgroundColor: '#f7e034'
                     },

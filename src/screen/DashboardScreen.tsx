@@ -39,7 +39,7 @@ const DashboarComp = () => {
                 let res = await axios.get(URL_API + 'utdailysales', { headers: headers })
 
                 if (res.data.status !== 200) {
-                    console.log(res.data)
+                    // console.log(res.data)
                     Alert.alert('Error', res.data.message)
                 } else {
                     if(res.data.dailysales){
@@ -184,9 +184,9 @@ const DashboarComp = () => {
                             <FontAwesome5 name='camera' size={64} />
                         }
                     </View>
-                    <Text style={{ flex: 1 }}>{item['nama']}</Text>
-                    <Text style={{ width: 52, textAlign: 'right' }}>{numberFormat.format(item['qty'])}</Text>
-                    <Text style={{ width: 52, textAlign: 'right' }}>{numberFormat.format(item['stok'])}</Text>
+                    <Text style={[parseFloat(item['stok']) === 0 ? style.textError : null, { flex: 1 }]}>{item['nama']}</Text>
+                    <Text style={[parseFloat(item['stok']) === 0 ? style.textError : null, { width: 52, textAlign: 'right' }]}>{numberFormat.format(item['qty'])}</Text>
+                    <Text style={[parseFloat(item['stok']) === 0 ? style.textError : null, { width: 52, textAlign: 'right' }]}>{numberFormat.format(item['stok'])}</Text>
                 </View>
             ))}
 

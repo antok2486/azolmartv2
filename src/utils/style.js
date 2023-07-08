@@ -153,5 +153,6 @@ export const style =  StyleSheet.create({
     textInputQty: { width: 80, height: 42, textAlign: 'right', borderWidth: 1, borderRadius: 5, borderColor: '#dee2e6' },
     textNumber: {width:'100%', textAlign:'right'},
     textTotal: { fontSize: 16, fontWeight: 'bold' },
+    textError: { color: 'red'},
 
 })

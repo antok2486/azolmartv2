@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList, RefreshControl } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList, RefreshControl, BackHandler } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { style } from '../utils/style';
 import { URL_API, numberFormat } from '../utils/config';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+// import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +54,7 @@ const ProductComp = ({ ...props }) => {
 
         //do filter 
         if (props.filter !== filter) {
-            console.log('filter changed')
+            // console.log('filter changed')
             setFilter(props.filter)
 
             if (page === 0) { //call getdata only if page=0
@@ -101,6 +102,11 @@ const ProductComp = ({ ...props }) => {
             return props.navigation.navigate('AddPurchaseIklan')
         }
 
+        //topup iklan
+        if (item['id'] === -2) {
+            return props.navigation.navigate('AddPurchaseIklan', {atk: true})
+        }
+
         //check wheter item already exists
         if (!props.dataBasket.find(key => key.id === item.id)) {
             item['qty'] = 0
@@ -128,7 +134,7 @@ const ProductComp = ({ ...props }) => {
                         <FontAwesome5 name='shopping-basket' size={16} color={'#ffac45'}></FontAwesome5>
                     </TouchableOpacity>
 
-                    {item && item['id'] !== -1 &&
+                    {item && item['id'] !== -1 && item['id'] !== -2 &&
                         <TouchableOpacity onPress={() => addToCart(item)}>
                             <FontAwesome5 name='cart-plus' size={16} color={'#ffac45'}></FontAwesome5>
                         </TouchableOpacity>
@@ -179,11 +185,28 @@ export default function ProductScreen({ navigation, route }) {
     const [dataBasket, setDataBasket] = useState([])
     const [filter, setFilter] = useState('')
     const [textFilter, setTextFilter] = useState('')
-    const nav = useNavigation()
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const backAction = () => {
+                Alert.alert('Exit Azol Mart', 'Are you sure you want to exit?', [
+                    { text: 'Cancel', onPress: () => null, style: 'cancel', },
+                    { text: 'Yes', onPress: () => {
+                        navigation.reset({ index: 0, routes: [{ name: 'Login', params: {isExit: true} }], })
+                        BackHandler.exitApp()
+                    } },
+                ]);
+                return true;
+            };
+    
+            const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction, );
+    
+            return () => backHandler.remove();    
+
+        }, [])
+    )
 
     useEffect(() => {
-        // console.log('route param ditangkap')
-        // console.log(route.params.dataCart.length)
         if (route.params?.dataCart) (
             setDataCart(route.params?.dataCart)
         )
@@ -191,6 +214,7 @@ export default function ProductScreen({ navigation, route }) {
         if (route.params?.dataBasket) {
             setDataBasket(route.params?.dataBasket)
         }
+
     }, [route.params?.dataCart, route.params?.dataBasket])
 
     const handleClickFilter = () => {
