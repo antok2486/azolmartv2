@@ -154,5 +154,6 @@ export const style =  StyleSheet.create({
     textNumber: {width:'100%', textAlign:'right'},
     textTotal: { fontSize: 16, fontWeight: 'bold' },
     textError: { color: 'red'},
+    dropDown: {height:26, padding:3, borderRadius:5, backgroundColor:'#f7e034', elevation:3, marginStart:5, marginEnd:5},
 
 })

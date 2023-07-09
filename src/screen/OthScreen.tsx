@@ -65,6 +65,10 @@ export default function OthScreen({navigation, route}) {
                     <TouchableOpacity style={{flexDirection:'row', height:40, alignItems:'center'}} onPress={() => navigation.navigate('StockRekapReport')}>
                         <FontAwesome5 name='swatchbook' size={18} /><Text style={{flex:1}}> Laporan Stok</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity style={{flexDirection:'row', height:40, alignItems:'center'}} onPress={() => navigation.navigate('CashFlowReport')}>
+                        <FontAwesome5 name='file-invoice-dollar' size={18} /><Text style={{flex:1}}> Laporan Kas</Text>
+                    </TouchableOpacity>
                 </View>
         </ScrollView>
     )

@@ -17,6 +17,7 @@ export default function App({...props}) {
 				<Stack.Screen name='AddPurchasePulsa' component={ScreenComponent['addPurchasePulsa']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddSale' component={ScreenComponent['addSale']} options={{ headerShown: false }} />
 				<Stack.Screen name='AddSalePulsa' component={ScreenComponent['addSalePulsa']} options={{ headerShown: false }} />
+				<Stack.Screen name='CashFlowReport' component={ScreenComponent['cashFlowReport']} options={{ headerShown: true, headerTitle:'Laporan Kas', headerStyle: {backgroundColor:'#f7e034'} }} />
 				<Stack.Screen name='Home' component={ScreenComponent['home']} options={{ headerShown: false }} />
 				<Stack.Screen name='Login' component={ScreenComponent['login']} options={{ headerShown: false }} />
 				<Stack.Screen name='PurchaseReport' component={ScreenComponent['purchasereport']} options={{ headerShown: true, headerTitle:'Laporan Pembelian', headerStyle: {backgroundColor:'#f7e034'} }} />

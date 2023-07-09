@@ -8,9 +8,9 @@ import { style } from '../utils/style';
 import SelectDropdown from 'react-native-select-dropdown';
 import { URL_API, numberFormat } from '../utils/config';
 
-export default function StockRekapReportModal() {
+export default function CashFlowReportModal() {
     const [data, setData] = useState([])
-    const [total, setTotal] = useState({ 'qty': 0, 'nilai': 0, 'saldoMitra': 0 })
+    const [total, setTotal] = useState({ 'debet': 0, 'kredit': 0, })
     const d = new Date()
     const [month, setMonth] = useState(d.getMonth());
     const [year, setYear] = useState(d.getFullYear());
@@ -27,30 +27,22 @@ export default function StockRekapReportModal() {
                     Authorization: 'Bearer ' + token
                 }
 
-                let res = await axios.get(URL_API + 'utrptstok_rkp?periode_y=' +year +'&periode_m=' +(month +1), { headers: headers })
+                let res = await axios.get(URL_API + 'utrptcash_flow?periode_y=' +year +'&periode_m=' +(month +1), { headers: headers })
 
                 if (res.data?.status !== 200) {
                     Alert.alert(res.data.errors)
                 } else {
                     setData(res.data.report)
 
-                    if(res.data.report.length < 6){
-                        setTotal({ 'qty': 0, 'nilai': 0, 'saldoMitra': 0 })
-                        return
+                    let debet=0, kredit=0
+
+                    for(let item of res.data.report){
+                        debet += parseFloat(item['debet'])
+                        kredit += parseFloat(item['kredit'])
                     }
 
-                    let qty = parseFloat(res.data.report[0]['qty']) +
-                        parseFloat(res.data.report[2]['qty'])
+                    setTotal({'debet': debet, 'kredit': kredit})
 
-                    let saldoMitra = parseFloat(res.data.report[1]['qty']) +
-                        parseFloat(res.data.report[3]['qty']) -
-                        parseFloat(res.data.report[5]['qty'])
-
-                    let nilai = parseFloat(res.data.report[0]['nilai']) + 
-                        parseFloat(res.data.report[2]['nilai']) - 
-                        parseFloat(res.data.report[4]['nilai'])
-
-                    setTotal({ 'qty': qty, 'nilai': nilai, 'saldoMitra': saldoMitra })
                 }
 
             } catch (e) {                
@@ -64,7 +56,7 @@ export default function StockRekapReportModal() {
     return (
         <View style={{ padding: 10 }}>
             <View style={{ flexDirection: 'row', borderWidth: 0, justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <Text style={{ fontWeight: 'bold', }}>Rekap Stok</Text>
+                <Text>Periode :</Text>
 
                 <View style={{ flex: 1, borderWidth: 0, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <SelectDropdown
@@ -89,27 +81,27 @@ export default function StockRekapReportModal() {
 
             <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginBottom: 5 }}>
                 <Text style={{ flex: 2 }}>Keterangan</Text>
-                <Text style={{ flex: 1, textAlign: 'right' }}>Qty</Text>
-                <Text style={{ flex: 1, textAlign: 'right' }}>Nilai</Text>
+                <Text style={{ flex: 1, textAlign: 'right' }}>Debet</Text>
+                <Text style={{ flex: 1, textAlign: 'right' }}>Kredit</Text>
             </View>
 
             {data && data.map((item) => (
                 <View key={item['keterangan']} style={{ flexDirection: 'row', marginBottom: 5 }}>
                     <Text style={{ flex: 2 }}>{item['keterangan']}</Text>
-                    <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(item['qty']))}</Text>
-                    <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(item['nilai']))}</Text>
+                    <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(item['debet']))}</Text>
+                    <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(item['kredit']))}</Text>
                 </View>
             ))}
 
-            <View style={{ flexDirection: 'row', borderTopWidth: 1 }}>
-                <Text style={{ flex: 2, fontWeight: 'bold' }}>Stok Akhir Barang</Text>
-                <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(total['qty']))}</Text>
-                <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(total['nilai']))}</Text>
+            <View style={{ flexDirection: 'row', marginBottom:5, borderTopWidth: 1 }}>
+                <Text style={{ flex: 2, fontWeight: 'bold' }}>Total</Text>
+                <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(total['debet']))}</Text>
+                <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(total['kredit']))}</Text>
             </View>
 
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={{ flex: 2, fontWeight: 'bold' }}>Saldo Akhir Mitra</Text>
-                <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(total['saldoMitra']))}</Text>
+            <View style={{ flexDirection: 'row', }}>
+                <Text style={{ flex: 2, fontWeight: 'bold' }}>Cash on hand</Text>
+                <Text style={{ flex: 1, textAlign: 'right' }}>{numberFormat.format(Math.ceil(total['kredit'] - total['debet']))}</Text>
             </View>
         </View>
     )
