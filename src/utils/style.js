@@ -137,7 +137,7 @@ export const style =  StyleSheet.create({
     productInfo: { borderTopWidth: 1, padding: 8, borderColor: '#dee2e6', },
     productButton: { borderWidth: 0, flexDirection: 'row', justifyContent: 'space-between', paddingStart: 10, paddingEnd: 10, paddingTop: 5, paddingBottom: 5 },
     headerBadge: { backgroundColor: 'red', position: 'absolute', top: -8, right: -2, borderRadius: 5, fontSize: 10, color: '#fff', paddingStart: 3, paddingEnd: 3, },
-    headerInputFilter: { width:302, height:42, borderWidth: 0, borderRadius: 10, borderColor: '#dee2e6', backgroundColor: '#fff', paddingEnd:26 },
+    headerInputFilter: { width:302, height:42, borderWidth: 0, borderRadius: 4, borderColor: '#dee2e6', backgroundColor: '#fff', paddingEnd:26 },
     headerButtonSearch: { position:'absolute', right:12, zIndex:100 },
     headerButtonClearFilter: { position: 'absolute', left: 12, zIndex: 100 },
     floatingButton: { position: 'absolute', width: 48, height: 48, borderRadius: 24, backgroundColor: colorPrimary, right:10, bottom: 10, alignItems: 'center', justifyContent: 'center' },

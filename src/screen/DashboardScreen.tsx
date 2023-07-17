@@ -10,7 +10,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Stack = createNativeStackNavigator();
 
-const DashboarComp = ({...props}) => {
+const DashboarComp = ({ ...props }) => {
     const [dataResume, setDataResume] = useState({})
     const [dataDailySales, setDataDailySales] = useState({ 'labels': ['0'], 'data': [0] })
     const [dataTopProduct, setDataTopProduct] = useState([])
@@ -119,19 +119,28 @@ const DashboarComp = ({...props}) => {
         <ScrollView horizontal={true} style={style.dashboardResumeContainer}>
             <View style={{ flexDirection: 'row', padding: 10 }}>
                 <View style={[style.dashboardResume, { marginEnd: 10 }]}>
-                    <Text style={style.dashboardResumeTitle}>Total Inventori</Text>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <Text style={[style.dashboardResumeTitle, { flex: 1, justifyContent:'space-between' }]}>Total Inventori</Text>
+                        <FontAwesome5 name="box" color={'#ffac45'} size={16} />
+                    </View>
                     <Text style={style.dashboardResumeValue}>Rp.{numberFormat.format(parseFloat(dataResume['tot_inv']))}</Text>
-                    <Text style={[style.dashboardResumeFooter, {color:'#bc5307'}]}>{numberFormat.format(parseFloat(dataResume['tot_stok']))} Pcs</Text>
+                    <Text style={[style.dashboardResumeFooter, { color: '#bc5307' }]}>{numberFormat.format(parseFloat(dataResume['tot_stok']))} Pcs</Text>
                 </View>
 
                 <View style={[style.dashboardResume, { marginEnd: 10 }]}>
-                    <Text style={style.dashboardResumeTitle}>Penjualan Bulan Ini</Text>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent:'space-between' }}>
+                        <Text style={style.dashboardResumeTitle}>Penjualan Bulan Ini</Text>
+                        <FontAwesome5 name='cart-plus' size={16} color={'#ffac45'}/>
+                    </View>
                     <Text style={style.dashboardResumeValue}>Rp.{numberFormat.format(parseFloat(dataResume['tot_jual']))}</Text>
-                    <Text style={[style.dashboardResumeFooter, {color:parseFloat(dataResume['tot_profit']) > 0 ? 'green' : 'red'}]}>Rp.{numberFormat.format(parseFloat(dataResume['tot_profit']))}</Text>
+                    <Text style={[style.dashboardResumeFooter, { color: parseFloat(dataResume['tot_profit']) > 0 ? 'green' : 'red' }]}>Rp.{numberFormat.format(parseFloat(dataResume['tot_profit']))}</Text>
                 </View>
 
                 <View style={style.dashboardResume}>
-                    <Text style={style.dashboardResumeTitle}>Pembelian Bulan Ini</Text>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent:'space-between' }}>
+                        <Text style={style.dashboardResumeTitle}>Pembelian Bulan Ini</Text>
+                        <FontAwesome5 name='shopping-basket' size={16} color={'#ffac45'}/>
+                    </View>
                     <Text style={style.dashboardResumeValue}>Rp.{numberFormat.format(parseFloat(dataResume['tot_beli']))}</Text>
                 </View>
             </View>

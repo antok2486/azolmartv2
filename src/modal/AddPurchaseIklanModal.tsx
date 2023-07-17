@@ -38,7 +38,7 @@ export default function AddPurchaseIklanModal({navigation, route}) {
     const [isAtk, setIsAtk] = useState(false)
 
     useEffect(() => {
-        if(route.params.atk){
+        if(route.params?.atk){
             setIsAtk(true)
         }
     },[])

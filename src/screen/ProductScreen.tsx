@@ -131,12 +131,12 @@ const ProductComp = ({ ...props }) => {
             <View>
                 <View style={style.productButton}>
                     <TouchableOpacity onPress={() => addToBasket(item)}>
-                        <FontAwesome5 name='shopping-basket' size={16} color={'#ffac45'}></FontAwesome5>
+                        <FontAwesome5 name='shopping-basket' size={16} color={'#ffac45'}/>
                     </TouchableOpacity>
 
                     {item && item['id'] !== -1 && item['id'] !== -2 &&
                         <TouchableOpacity onPress={() => addToCart(item)}>
-                            <FontAwesome5 name='cart-plus' size={16} color={'#ffac45'}></FontAwesome5>
+                            <FontAwesome5 name='cart-plus' size={16} color={'#ffac45'}/>
                         </TouchableOpacity>
                     }
                 </View>
