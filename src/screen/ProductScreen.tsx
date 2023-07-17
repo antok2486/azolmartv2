@@ -75,7 +75,7 @@ const ProductComp = ({ ...props }) => {
         }
 
         //protect stock
-        if(item['stok'] <= 0){
+        if (item['stok'] <= 0) {
             return Alert.alert('Tidak ada stok', 'Stok tidak mencukupi. Silahkan kulakan !')
         }
 
@@ -104,7 +104,7 @@ const ProductComp = ({ ...props }) => {
 
         //topup iklan
         if (item['id'] === -2) {
-            return props.navigation.navigate('AddPurchaseIklan', {atk: true})
+            return props.navigation.navigate('AddPurchaseIklan', { atk: true })
         }
 
         //check wheter item already exists
@@ -144,19 +144,23 @@ const ProductComp = ({ ...props }) => {
                 <View style={style.productInfo}>
                     <Text style={{ fontWeight: 'bold', }} onPress={() => props.navigation.navigate('AddProduct', { id: item['id'] })}>{item['nama']}</Text>
 
-                    <View style={{ marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontWeight: 'bold', color: '#000', width: 100, }}>Rp{numberFormat.format(item['hrg_jual1'])}</Text>
-                        <Text style={{ fontSize: 10, fontWeight: 'bold', width: 100, marginTop: 3 }}>Rp{numberFormat.format(item['hrg_beli'])}</Text>
+                    <View style={{ marginTop: 2, justifyContent:'flex-end', flexDirection:'row', flex:1, }}>
+                        <Text style={{ fontSize:10, fontWeight: 'bold',}}>{numberFormat.format(item['qty_jual'])} terjual</Text>
                     </View>
 
                     <View style={{ marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontWeight: 'bold', width: 100, }}>Rp{numberFormat.format(item['hrg_jual2'])}</Text>
-                        <Text style={{ fontSize: 10, fontWeight: 'bold', width: 100, marginTop: 3 }}>{item['id'] === 0 ? 'Rp.' : ''}{numberFormat.format(item['stok'])} {item['id'] !== 0 ? 'Pcs' : ''}</Text>
+                        <Text style={{ fontWeight: 'bold', color: '#000', flex:1 }}>Rp{numberFormat.format(item['hrg_jual1'])}</Text>
+                        <Text style={{ fontSize: 10, fontWeight: 'bold', width: 60, marginTop: 3, textAlign:'right' }}>Rp{numberFormat.format(item['hrg_beli'])}</Text>
+                    </View>
+
+                    <View style={{ marginTop: 2, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ fontWeight: 'bold', flex:1, }}>Rp{numberFormat.format(item['hrg_jual2'])}</Text>
+                        <Text style={{ fontSize: 10, fontWeight: 'bold', width: 60, marginTop: 3, textAlign:'right', }}>{item['id'] === 0 ? 'Rp.' : ''}{numberFormat.format(item['stok'])} {item['id'] !== 0 ? 'Pcs' : ''}</Text>
                     </View>
 
                 </View>
             </View>
-        </View>
+        </View >
     )
 
     return (
@@ -191,17 +195,19 @@ export default function ProductScreen({ navigation, route }) {
             const backAction = () => {
                 Alert.alert('Exit Azol Mart', 'Are you sure you want to exit?', [
                     { text: 'Cancel', onPress: () => null, style: 'cancel', },
-                    { text: 'Yes', onPress: () => {
-                        navigation.reset({ index: 0, routes: [{ name: 'Login', params: {isExit: true} }], })
-                        BackHandler.exitApp()
-                    } },
+                    {
+                        text: 'Yes', onPress: () => {
+                            navigation.reset({ index: 0, routes: [{ name: 'Login', params: { isExit: true } }], })
+                            BackHandler.exitApp()
+                        }
+                    },
                 ]);
                 return true;
             };
-    
-            const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction, );
-    
-            return () => backHandler.remove();    
+
+            const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction,);
+
+            return () => backHandler.remove();
 
         }, [])
     )

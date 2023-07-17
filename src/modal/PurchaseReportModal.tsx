@@ -56,7 +56,7 @@ export default function PurchaseReportModal() {
             <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#dee2e6', }}>
                 <View style={{ flex: 1 }}>
                     <Text>{item['keterangan']}</Text>
-                    <Text style={{ fontSize: 10 }}>{item['kode']}</Text>
+                    <Text style={{ fontSize: 10 }}>{item['kode']} / {item['tgl']}</Text>
                 </View>
 
                 <View style={{ width: 90, borderWidth: 0, alignItems: 'flex-end' }}>

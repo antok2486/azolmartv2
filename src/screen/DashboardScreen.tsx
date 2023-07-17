@@ -121,13 +121,13 @@ const DashboarComp = ({...props}) => {
                 <View style={[style.dashboardResume, { marginEnd: 10 }]}>
                     <Text style={style.dashboardResumeTitle}>Total Inventori</Text>
                     <Text style={style.dashboardResumeValue}>Rp.{numberFormat.format(parseFloat(dataResume['tot_inv']))}</Text>
-                    <Text style={style.dashboardResumeFooter}>{numberFormat.format(parseFloat(dataResume['tot_stok']))} Pcs</Text>
+                    <Text style={[style.dashboardResumeFooter, {color:'#bc5307'}]}>{numberFormat.format(parseFloat(dataResume['tot_stok']))} Pcs</Text>
                 </View>
 
                 <View style={[style.dashboardResume, { marginEnd: 10 }]}>
                     <Text style={style.dashboardResumeTitle}>Penjualan Bulan Ini</Text>
                     <Text style={style.dashboardResumeValue}>Rp.{numberFormat.format(parseFloat(dataResume['tot_jual']))}</Text>
-                    <Text style={style.dashboardResumeFooter}>Rp.{numberFormat.format(parseFloat(dataResume['tot_profit']))}</Text>
+                    <Text style={[style.dashboardResumeFooter, {color:parseFloat(dataResume['tot_profit']) > 0 ? 'green' : 'red'}]}>Rp.{numberFormat.format(parseFloat(dataResume['tot_profit']))}</Text>
                 </View>
 
                 <View style={style.dashboardResume}>
