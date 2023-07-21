@@ -59,6 +59,7 @@ const AddSaleComp = ({ ...props }) => {
         if (name === 'flag_harga') {
             let tot = 0
             let keyHarga = value ? 'hrg_jual2' : 'hrg_jual1'
+            let flagValid = value ? 0 : 1
             let tempD = props.dataCart.map(l => Object.assign({}, l))
             for (let item of tempD) {
                 item['hrg'] = item[keyHarga]
@@ -68,6 +69,11 @@ const AddSaleComp = ({ ...props }) => {
                 tot += item['tot_hrg']
             }
 
+            //update flag harga
+            temp['flag_valid'] = flagValid
+            props.setDataH(temp)
+
+            //update cart and total
             props.setDataCart(tempD)
             setTotHarga(tot)
         }
@@ -157,10 +163,7 @@ const AddSaleComp = ({ ...props }) => {
 
 export default function AddSaleModal({ navigation, route }) {
     const [dataCart, setDataCart] = useState(route.params.dataCart)
-    // const dataCart = route.params.dataCart
-    // const setDataCart = route.params.setDataCart
-
-    const [dataH, setDataH] = useState({ keterangan: '', flag_harga: false })
+    const [dataH, setDataH] = useState({ keterangan: '', flag_harga: false, flag_valid:1 })
 
     const handleClickBack = () => {
         navigation.navigate({
