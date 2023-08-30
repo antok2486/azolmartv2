@@ -7,9 +7,12 @@ import axios from 'axios';
 import { style } from '../utils/style';
 import { URL_API, numberFormat } from '../utils/config';
 
-export default function SaleOnlineReportScreen() {
+export default function SaleOnlineReportScreen({navigation, route}) {
     const [data, setData] = useState([])
     const [page, setPage] = useState(0)
+    const [filter, setFilter] = useState('')
+    const [filterA, setFilterA] = useState('')
+    const [textFilter, setTextFilter] = useState('')
 
     useEffect(() => {
         const getData = async () => {
@@ -21,7 +24,7 @@ export default function SaleOnlineReportScreen() {
                     Authorization: 'Bearer ' + token
                 }
 
-                let res = await axios.get(URL_API + 'trsale?flag_harga=2&page=' + page, { headers: headers })
+                let res = await axios.get(URL_API + 'trsale?flag_harga=2&page=' + page + '&filter=' + filter, { headers: headers })
 
                 if (res.data.status !== 200) {
                     Alert.alert(res.data.errors)
@@ -46,10 +49,34 @@ export default function SaleOnlineReportScreen() {
                 Alert.alert('Server Error', e.response.data.message)
             }
         }
-        // console.log('masuk')
-        getData()
 
-    }, [page])
+        if(filter !== filterA){
+            setFilterA(filter)
+
+            if (page === 0) { //call getdata only if page=0
+                getData()
+            } else {
+                setPage(0)  //getdata called by this
+            }
+
+        }else{
+            getData()
+        }
+        
+    }, [page, filter])
+
+    const handleClearFilter = () => {
+        setFilter('')
+        setTextFilter('')
+    }
+
+    const handleClickFilter = () => {
+        setFilter(textFilter)
+    }
+
+    const handleClickValid = (idSale) => {
+        navigation.navigate('ValidSale', { idSale: idSale })
+    }
 
     const Item = ({ item }) => (
         <View style={{ borderWidth: 1, borderColor: '#dee2e6', backgroundColor: '#fff', marginBottom: 10, elevation: 5 }}>
@@ -66,7 +93,7 @@ export default function SaleOnlineReportScreen() {
                         <Text style={{ fontSize: 10, width: 100 }}>{item['kode']}</Text>
 
                         {item['flag_valid'] === 0 &&
-                            <TouchableOpacity style={{ backgroundColor: '#93f9ba', borderRadius: 5, paddingVertical: 2, paddingHorizontal: 5 }}>
+                            <TouchableOpacity style={{ backgroundColor: '#93f9ba', borderRadius: 5, paddingVertical: 2, paddingHorizontal: 5 }} onPress={() => handleClickValid(item['id'])}>
                                 <Text style={{ fontSize: 10, color: '#036829', fontStyle: 'italic', fontWeight: 'bold' }}>Selesaikan</Text>
                             </TouchableOpacity>
                         }
@@ -95,12 +122,30 @@ export default function SaleOnlineReportScreen() {
     )
 
     return (
-        <FlatList
-            // style={{ borderWidth: 0, padding: 10 }}
-            data={data}
-            renderItem={({ item }) => <Item item={item} />}
-            keyExtractor={item => item.id}
-            onEndReached={() => setPage(page + 1)}
-        />
+        <React.Fragment>
+            <View style={{ flexDirection: 'row', height:52, paddingHorizontal:5, alignItems:'center' }}>
+                {filter &&
+                    <TouchableOpacity style={style.headerButtonClearFilter} onPress={() => handleClearFilter()}>
+                        <FontAwesome5 name='times' size={18} />
+                    </TouchableOpacity>
+                }
+
+                <TextInput placeholder='Pencarian' style={[style.headerInputFilter, { flex:1, paddingStart: filter ? 28 : 15 }]} defaultValue={textFilter} onChangeText={(text) => setTextFilter(text)} onEndEditing={() => handleClickFilter()} />
+
+                <TouchableOpacity style={style.headerButtonSearch} onPress={() => handleClickFilter()}>
+                    <FontAwesome5 name='search' size={18} />
+                </TouchableOpacity>
+
+            </View>
+
+            <FlatList
+                // style={{ borderWidth: 0, padding: 10 }}
+                data={data}
+                renderItem={({ item }) => <Item item={item} />}
+                keyExtractor={item => item.id}
+                onEndReached={() => setPage(page + 1)}
+            />
+
+        </React.Fragment>
     )
 }

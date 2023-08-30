@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList, RefreshControl, BackHandler } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList, RefreshControl, BackHandler, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -257,7 +257,7 @@ export default function ProductScreen({ navigation, route }) {
                         </View>
                     ),
                     headerRight: () => (
-                        <View style={{ width: 50, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ width: 72, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <TouchableOpacity onPress={() => navigation.navigate('AddPurchase', { dataBasket: dataBasket })}>
                                 <FontAwesome5 name='shopping-basket' size={18} />
                                 {dataBasket.length !== 0 &&
@@ -272,13 +272,9 @@ export default function ProductScreen({ navigation, route }) {
                                 }
                             </TouchableOpacity>
 
-                            {/* <TouchableOpacity onPress={() => navigation.navigate('AddSalePulsa')}>
-                                <FontAwesome5 name='mobile-alt' size={18} />
+                            <TouchableOpacity onPress={() => null}>
+                                <FontAwesome5 name='wallet' size={18} />
                             </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.navigate('AddPurchasePulsa')}>
-                                <FontAwesome5 name='charging-station' size={18} />
-                            </TouchableOpacity> */}
                         </View>
                     )
                 }}

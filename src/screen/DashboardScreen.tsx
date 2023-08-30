@@ -19,7 +19,7 @@ const DashboarComp = ({ ...props }) => {
     const chartConfig = {
         backgroundGradientFrom: "#fff",
         backgroundGradientTo: "#fff",
-        color: (opacity = 0.5) => `rgba(243, 168, 113, ${opacity})`,
+        color: (opacity = 0.8) => `rgba(243, 168, 113, ${opacity})`,
         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         strokeWidth: 2, // optional, default 3
         barPercentage: 0.5,
@@ -156,7 +156,7 @@ const DashboarComp = ({ ...props }) => {
                         labels: dataDailySales['labels'] ? dataDailySales['labels'] : ['0'],
                         datasets: [{ data: dataDailySales['data'] ? dataDailySales['data'] : [0] }]
                     }}
-                    width={620} // from react-native
+                    width={720} // from react-native
                     height={220}
                     yAxisLabel="Rp."
                     yAxisInterval={1} // optional, defaults to 1

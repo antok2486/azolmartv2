@@ -24,6 +24,7 @@ export default function App({...props}) {
 				<Stack.Screen name='Register' component={ScreenComponent['register']} options={{ headerShown: false }} />
 				<Stack.Screen name='SaleReport' component={ScreenComponent['salereport']} options={{ headerShown: true, headerTitle:'Laporan Penjualan', headerStyle: {backgroundColor:'#f7e034'} }} />
 				<Stack.Screen name='StockRekapReport' component={ScreenComponent['stockRekapReport']} options={{ headerShown: true, headerTitle:'Laporan Rekap Stok', headerStyle: {backgroundColor:'#f7e034'} }} />
+				<Stack.Screen name='ValidSale' component={ScreenComponent['validSale']} options={{ headerShown: false }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)

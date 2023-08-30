@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, ScrollView, FlatList, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -27,14 +27,14 @@ export default function StockRekapReportModal() {
                     Authorization: 'Bearer ' + token
                 }
 
-                let res = await axios.get(URL_API + 'utrptstok_rkp?periode_y=' +year +'&periode_m=' +(month +1), { headers: headers })
+                let res = await axios.get(URL_API + 'utrptstok_rkp?periode_y=' + year + '&periode_m=' + (month + 1), { headers: headers })
 
                 if (res.data?.status !== 200) {
                     Alert.alert(res.data.errors)
                 } else {
                     setData(res.data.report)
 
-                    if(res.data.report.length < 6){
+                    if (res.data.report.length < 6) {
                         setTotal({ 'qty': 0, 'nilai': 0, 'saldoMitra': 0 })
                         return
                     }
@@ -46,14 +46,14 @@ export default function StockRekapReportModal() {
                         parseFloat(res.data.report[3]['qty']) -
                         parseFloat(res.data.report[5]['qty'])
 
-                    let nilai = parseFloat(res.data.report[0]['nilai']) + 
-                        parseFloat(res.data.report[2]['nilai']) - 
+                    let nilai = parseFloat(res.data.report[0]['nilai']) +
+                        parseFloat(res.data.report[2]['nilai']) -
                         parseFloat(res.data.report[4]['nilai'])
 
                     setTotal({ 'qty': qty, 'nilai': nilai, 'saldoMitra': saldoMitra })
                 }
 
-            } catch (e) {                
+            } catch (e) {
                 Alert.alert('Server Error', e.response.data.message)
             }
         }
@@ -85,6 +85,12 @@ export default function StockRekapReportModal() {
                         buttonTextStyle={{ fontSize: 12, }}
                     />
                 </View>
+            </View>
+
+            <View style={{ height:24, borderWidth: 0, flexDirection: 'row', }}>
+                <TouchableOpacity style={{marginEnd:10}} onPress={() => setMonth(month -1)}><FontAwesome5 name='caret-left' size={18} /></TouchableOpacity>
+                <Text>{months[month]}</Text>
+                <TouchableOpacity style={{marginStart:10}} onPress={() => setMonth(month +1)}><FontAwesome5 name='caret-right' size={18} /></TouchableOpacity>
             </View>
 
             <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginBottom: 5 }}>
